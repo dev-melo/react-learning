@@ -1,37 +1,45 @@
 import { useState } from "react"
 import { InputAdd } from "./components/InputAdd";
+import { TodoItem } from "./components/TodoItem";
 
 export function App() { // componente base, (APP) porta de entrada da aplicação
 
   const [list, setList] = useState([
-    { id: '1', label: 'Fazer café', complete: false},
-    { id: '2', label: 'Fazer café', complete: false},
-    { id: '3', label: 'Fazer almoço', complete: false},
-    { id: '4', label: 'Fazer janta', complete: false},
+    { id: '1', label: 'Fazer café', complete: false },
+    { id: '2', label: 'Fazer café', complete: false },
+    { id: '3', label: 'Fazer almoço', complete: false },
+    { id: '4', label: 'Fazer janta', complete: false },
   ]);
 
   const handleAdd = (value: string) => {
     setList([...list,
-             {id: (list.length + 1).toString(), complete: false, label: value}]);
+    { id: (list.length + 1).toString(), complete: false, label: value }]);
   }
 
   return (
     <div>
       <InputAdd onAdd={handleAdd} />
-      <InputAdd onAdd={handleAdd} />
 
       <ol>
         {list.map((listItem) => (
-          <li key={listItem.id}>
-            {listItem.label}
-            {listItem.complete? ' Ok ':''}
-            <button onClick={() => setList([...list].map(item => ({...item, complete: item.id === listItem.id ? true : item.complete})))}>
-              Done
-            </button>
-            <button onClick={() => setList([...list].filter(item => item.id !== listItem.id))}>
-              Delete
-            </button>
-          </li>
+          <TodoItem
+
+            key={listItem.id}
+
+
+            id={listItem.id}
+            label={listItem.label}
+            complete={listItem.complete}
+
+            onDone={() =>
+              setList([...list]
+                .map(item =>
+                ({
+                  ...item,
+                  complete: item.id === listItem.id ? true : item.complete
+                })))}
+            onDelete={() => setList([...list.filter(item => item.id !== listItem.id)])}
+          />
         ))}
       </ol>
 
@@ -39,4 +47,3 @@ export function App() { // componente base, (APP) porta de entrada da aplicaçã
   )
 
 }
-
