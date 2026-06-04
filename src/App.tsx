@@ -16,6 +16,20 @@ export function App() { // componente base, (APP) porta de entrada da aplicaçã
     { id: (list.length + 1).toString(), complete: false, label: value }]);
   }
 
+  const handleDelete = (id: string) => {
+    setList([
+      ...list.filter(item => item.id !== id),
+    ])
+  }
+  const handleDone = (id: string) => {
+    setList([
+      ...list.map(item => ({
+        ...item,
+        complete: item.id === id ? true : item.complete
+      }))
+    ]);
+  }
+
   return (
     <div>
       <InputAdd onAdd={handleAdd} />
@@ -31,14 +45,8 @@ export function App() { // componente base, (APP) porta de entrada da aplicaçã
             label={listItem.label}
             complete={listItem.complete}
 
-            onDone={() =>
-              setList([...list]
-                .map(item =>
-                ({
-                  ...item,
-                  complete: item.id === listItem.id ? true : item.complete
-                })))}
-            onDelete={() => setList([...list.filter(item => item.id !== listItem.id)])}
+            onDone={() => handleDone(listItem.id)}
+            onDelete={() => handleDelete(listItem.id)}
           />
         ))}
       </ol>
