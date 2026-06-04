@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { InputAdd } from "./components/InputAdd";
 import { TodoItem } from "./components/TodoItem";
+import { List } from "./components/List";
 
 export function App() { // componente base, (APP) porta de entrada da aplicação
 
@@ -34,12 +35,11 @@ export function App() { // componente base, (APP) porta de entrada da aplicaçã
     <div>
       <InputAdd onAdd={handleAdd} />
 
-      <ol>
+      <List>
         {list.map((listItem) => (
           <TodoItem
 
             key={listItem.id}
-
 
             id={listItem.id}
             label={listItem.label}
@@ -49,7 +49,7 @@ export function App() { // componente base, (APP) porta de entrada da aplicaçã
             onDelete={() => handleDelete(listItem.id)}
           />
         ))}
-      </ol>
+      </List>
 
     </div>
   )
