@@ -1,42 +1,36 @@
-import { useState } from "react";
 
-const Tests = () => { // Component Funcional React - a Primeira letra de um Componente precisa ser Maiuscula!!!
-  return (
-    <div>
-      Isso é um componente react criado por mim.
-    </div>
-  )
+
+interface ICardProps{
+  title: string;
+  children: React.ReactNode;
 }
-const tests = () => { // Função JS que retorna html react
+const Card = (props: ICardProps) => {
   return (
-    <div>
-      Isso é uma Função que retona html react.
-    </div>
-  )
-}
+    <div style={{ border: '1px solid black' }}>
+      <span>Title: {props.title}</span>
 
-export function App() {
+      <div>
+        {props.children}
+      </div>
 
-  return (
-    <div>
-    Olá
-    <Tests></Tests>
-    <p>---</p>
-    {tests()} 
+      <div>
+        Footer
+      </div>
     </div>
   )
 }
 
+export function App() { // componente base, (APP) porta de entrada da aplicação
 
-const teste = () => { // Função JS
-  return 1 + 1;
-}
-
-const useTeste = () => { // Função JS
-  return 1 + 1;
-}
-const useTest = () => { // React hook 
-  const [value] =  useState( 1 + 1 )
-  return value;
+  return (
+    <div>
+      Olá
+      <p>Card: </p>
+      <Card title="teste 1">
+        Filho
+      </Card>
+      
+    </div>
+  )
 }
 
