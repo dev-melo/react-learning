@@ -1,34 +1,21 @@
+import { useState } from "react"
 
-
-interface ICardProps{
-  title: string;
-  children: React.ReactNode;
-}
-const Card = (props: ICardProps) => {
-  return (
-    <div style={{ border: '1px solid black' }}>
-      <span>Title: {props.title}</span>
-
-      <div>
-        {props.children}
-      </div>
-
-      <div>
-        Footer
-      </div>
-    </div>
-  )
-}
 
 export function App() { // componente base, (APP) porta de entrada da aplicação
 
+  const [count, setCount] = useState(0);
+  const [name, setName] = useState('Felipe');
   return (
+
     <div>
-      Olá
-      <p>Card: </p>
-      <Card title="teste 1">
-        Filho
-      </Card>
+      <p>{name} clicou:  
+        <button onClick={() => setCount(count + 1)}>
+          {count}
+        </button>
+        <button onClick={() => setName("Iori")}>
+          Mude o nome</button>
+
+      </p>
       
     </div>
   )
