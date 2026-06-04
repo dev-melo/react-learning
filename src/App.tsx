@@ -10,16 +10,15 @@ export function App() { // componente base, (APP) porta de entrada da aplicaçã
     { id: '4', label: 'Fazer janta', complete: false},
   ]);
 
+  const handleAdd = (value: string) => {
+    setList([...list,
+             {id: (list.length + 1).toString(), complete: false, label: value}]);
+  }
+
   return (
     <div>
-
-      <InputAdd 
-        onAdd={(value) => {
-          setList([...list,
-             {id: (list.length + 1).toString(), complete: false, label: value}])
-        }}
-      />
-      
+      <InputAdd onAdd={handleAdd} />
+      <InputAdd onAdd={handleAdd} />
 
       <ol>
         {list.map((listItem) => (
