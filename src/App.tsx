@@ -1,34 +1,41 @@
 import { useState } from "react"
+import { InputAdd } from "./components/InputAdd";
 
 export function App() { // componente base, (APP) porta de entrada da aplicação
 
-  const [value, setValue] = useState('');
   const [list, setList] = useState([
-    {id: '1', label: 'Fazer café',},
-    {id: '2', label: 'Fazer café',},
-    {id: '3', label: 'Fazer almoço',},
-    {id: '4', label: 'Fazer janta',},
+    { id: '1', label: 'Fazer café', complete: false},
+    { id: '2', label: 'Fazer café', complete: false},
+    { id: '3', label: 'Fazer almoço', complete: false},
+    { id: '4', label: 'Fazer janta', complete: false},
   ]);
 
   return (
     <div>
 
-      <input 
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
+      <InputAdd 
+        onAdd={(value) => {
+          setList([...list,
+             {id: (list.length + 1).toString(), complete: false, label: value}])
+        }}
       />
-      <button onClick={() => {
-        setList([...list, { id: (list.length + 1).toString(), label: value }]);
-        setValue('');
-      }}>
-          Add
-        </button>
+      
+
       <ol>
         {list.map((listItem) => (
           <li key={listItem.id}>
-            {listItem.label}</li>
+            {listItem.label}
+            {listItem.complete? ' Ok ':''}
+            <button onClick={() => setList([...list].map(item => ({...item, complete: item.id === listItem.id ? true : item.complete})))}>
+              Done
+            </button>
+            <button onClick={() => setList([...list].filter(item => item.id !== listItem.id))}>
+              Delete
+            </button>
+          </li>
         ))}
       </ol>
+
     </div>
   )
 
